@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
 #include "ECS/Coordinator.h"
 #include "Components/Transform.h"
 #include "Components/Sprite.h"
@@ -14,7 +15,7 @@ static bool quit = false;
 int main() {
     using namespace DarkBelow;
     
-    sf::RenderWindow window(sf::VideoMode(1600, 900), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1600, 900), "The Dark Below");
     gCoordinator.init();
     gTextureLoader.init();
 
@@ -29,10 +30,31 @@ int main() {
         signature.set(gCoordinator.GetComponentType<ECS::Transform>());
         gCoordinator.SetSystemSignature<ECS::RenderSystem>(signature);
     }
+    
+    auto Player = gCoordinator.CreateEntity();
+    gCoordinator.AddComponent(
+        Player,
+        ECS::Transform{
+            sf::Vector2f(200.f, 200.f),
+            sf::Vector2f(0.f, 0.f),
+            sf::Vector2f(1, 1)
+        });
+
+    sf::Texture playerTexture;
+    playerTexture = gTextureLoader.getTexture("playerChar");
+    sf::Sprite playerSprite;
+    playerSprite.setTexture(playerTexture);
+    gCoordinator.AddComponent(
+        Player,
+        ECS::Sprite{
+            playerSprite
+        });
 
     renderSystem->init();
 
+    sf::Clock deltaClock;
     while (window.isOpen()) {
+        sf::Time dt = deltaClock.restart();
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)

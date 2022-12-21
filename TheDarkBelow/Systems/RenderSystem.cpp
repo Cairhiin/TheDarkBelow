@@ -4,7 +4,8 @@
 
 #include "../ECS/Coordinator.h"
 #include "../TextureLoader.h"
-#include "SFML/Graphics/CircleShape.hpp"
+#include "../Components/Sprite.h"
+#include "../Components/Transform.h"
 
 extern DarkBelow::TextureLoader gTextureLoader;
 extern DarkBelow::ECS::Coordinator gCoordinator;
@@ -12,13 +13,16 @@ extern DarkBelow::ECS::Coordinator gCoordinator;
 namespace DarkBelow {
 	namespace ECS {
 		void RenderSystem::init() {
-			mPlayerTexture = gTextureLoader.getTexture("playerChar");
-			mPlayerSprite.setTexture(mPlayerTexture);
-			mPlayerSprite.setPosition(200.f, 200.f);
+
 		}
 
 		void RenderSystem::draw(sf::RenderWindow& window) {
-			window.draw(mPlayerSprite);
+			for (auto const& entity : mEntities) {
+				sf::Vector2f position = gCoordinator.GetComponent<Transform>(entity).position;
+				sf::Sprite sprite = gCoordinator.GetComponent<Sprite>(entity).sprite;
+				sprite.setPosition(position);
+				window.draw(sprite);
+			}
 		}
 	}
 }
