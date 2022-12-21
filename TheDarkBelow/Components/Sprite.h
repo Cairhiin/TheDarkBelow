@@ -6,8 +6,7 @@
 namespace DarkBelow {
 	namespace ECS {
 		struct Sprite {
-			sf::Sprite mSprite;
-			sf::IntRect mDestination;
+			sf::Sprite sprite;
 		};
 	}
 }
