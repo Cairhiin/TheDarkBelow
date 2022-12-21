@@ -1,11 +1,10 @@
 #include <SFML/Graphics.hpp>
-#include "Coordinator.h"
-#include "Transform.h"
-#include "Sprite.h"
-#include "RigidBody.h"
-#include "RenderSystem.h"
-#include "Transform.h"
-#include "Types.h"
+#include "ECS/Coordinator.h"
+#include "Components/Transform.h"
+#include "Components/Sprite.h"
+#include "Components/RigidBody.h"
+#include "Systems/RenderSystem.h"
+#include "ECS/Types.h"
 #include "TextureLoader.h"
 
 DarkBelow::ECS::Coordinator gCoordinator;

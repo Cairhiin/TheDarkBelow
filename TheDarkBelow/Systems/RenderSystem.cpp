@@ -2,8 +2,8 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
-#include "Coordinator.h"
-#include "TextureLoader.h"
+#include "../ECS/Coordinator.h"
+#include "../TextureLoader.h"
 #include "SFML/Graphics/CircleShape.hpp"
 
 extern DarkBelow::TextureLoader gTextureLoader;
