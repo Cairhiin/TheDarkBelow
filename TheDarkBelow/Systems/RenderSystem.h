@@ -14,8 +14,6 @@ namespace DarkBelow {
 			void draw(sf::RenderWindow& window);
 
 		private:
-			sf::Texture mPlayerTexture;
-			sf::Sprite mPlayerSprite;
 		};
 	}
 }

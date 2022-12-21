@@ -5,6 +5,8 @@
 #include "Components/Sprite.h"
 #include "Components/RigidBody.h"
 #include "Systems/RenderSystem.h"
+#include "Systems/PhysicsSystem.h"
+#include "Systems/PlayerControlSystem.h"
 #include "ECS/Types.h"
 #include "TextureLoader.h"
 
@@ -23,6 +25,16 @@ int main() {
     gCoordinator.RegisterComponent<ECS::Sprite>();
     gCoordinator.RegisterComponent<ECS::RigidBody>();
 
+    auto physicsSystem = gCoordinator.RegisterSystem<ECS::PhysicsSystem>();
+    {
+        ECS::Signature signature;
+        signature.set(gCoordinator.GetComponentType<ECS::RigidBody>());
+        signature.set(gCoordinator.GetComponentType<ECS::Transform>());
+        gCoordinator.SetSystemSignature<ECS::PhysicsSystem>(signature);
+    }
+
+    physicsSystem->init();
+
     auto renderSystem = gCoordinator.RegisterSystem<ECS::RenderSystem>();
     {
         ECS::Signature signature;
@@ -31,6 +43,15 @@ int main() {
         gCoordinator.SetSystemSignature<ECS::RenderSystem>(signature);
     }
     
+    renderSystem->init();
+
+    auto playerControlSystem = gCoordinator.RegisterSystem<ECS::PlayerControlSystem>();
+    {
+        ECS::Signature signature;
+        signature.set(gCoordinator.GetComponentType<ECS::RigidBody>());
+        gCoordinator.SetSystemSignature<ECS::PlayerControlSystem>(signature);
+    }
+
     auto Player = gCoordinator.CreateEntity();
     gCoordinator.AddComponent(
         Player,
@@ -39,6 +60,14 @@ int main() {
             sf::Vector2f(0.f, 0.f),
             sf::Vector2f(1, 1)
         });
+    gCoordinator.AddComponent(
+        Player,
+        ECS::RigidBody{
+            sf::Vector2f(0.0f, 0.0f),
+            sf::Vector2f(0.0f, 0.0f)
+        });
+    playerControlSystem->init(Player);
+
 
     sf::Texture playerTexture;
     playerTexture = gTextureLoader.getTexture("playerChar");
@@ -50,16 +79,22 @@ int main() {
             playerSprite
         });
 
-    renderSystem->init();
-
     sf::Clock deltaClock;
     while (window.isOpen()) {
-        sf::Time dt = deltaClock.restart();
+        float dt = deltaClock.restart().asSeconds();
         sf::Event event;
         while (window.pollEvent(event)) {
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::Escape) {
+                    event.type = sf::Event::Closed;
+                }
+            }
             if (event.type == sf::Event::Closed)
                 window.close();
+            playerControlSystem->update(event);
         }
+
+        physicsSystem->update(dt);
 
         window.clear();
         renderSystem->draw(window);

@@ -131,6 +131,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Systems\PlayerControlSystem.cpp" />
     <ClCompile Include="Systems\RenderSystem.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
   </ItemGroup>
@@ -139,6 +141,8 @@
     <ClInclude Include="ECS\ComponentManager.h" />
     <ClInclude Include="ECS\Coordinator.h" />
     <ClInclude Include="ECS\EntityManager.h" />
+    <ClInclude Include="Systems\PhysicsSystem.h" />
+    <ClInclude Include="Systems\PlayerControlSystem.h" />
     <ClInclude Include="Systems\RenderSystem.h" />
     <ClInclude Include="Components\RigidBody.h" />
     <ClInclude Include="Components\Sprite.h" />
