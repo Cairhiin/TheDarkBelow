@@ -3,6 +3,7 @@
 #include "../Components/RigidBody.h"
 #include "../Components/Transform.h"
 #include "../Components/Gravity.h"
+#include "../Constants.h"
 
 extern DarkBelow::ECS::Coordinator gCoordinator;
 
@@ -21,8 +22,8 @@ namespace DarkBelow {
 				transform.position += rigidBody.velocity * dt;
 				rigidBody.velocity += gravity.force * dt;
 
-				if (rigidBody.velocity.y >= 400.f) {
-					rigidBody.velocity.y = 400.f;
+				if (rigidBody.velocity.y >= Constants::Game::TERMINAL_VELOCITY) {
+					rigidBody.velocity.y = Constants::Game::TERMINAL_VELOCITY;
 				}
 			}
 		}

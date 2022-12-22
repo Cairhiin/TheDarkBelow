@@ -86,5 +86,11 @@
     <ClInclude Include="Components\Gravity.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Components\Collision.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

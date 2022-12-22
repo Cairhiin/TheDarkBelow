@@ -1,5 +1,6 @@
 #include "PlayerControlSystem.h"
 #include "../ECS/Coordinator.h"
+#include "../Constants.h"
 
 extern DarkBelow::ECS::Coordinator gCoordinator;
 
@@ -43,10 +44,10 @@ namespace DarkBelow {
 			}
 
 			if (mMovingRight) {
-				rigidBody.velocity.x = 100.f;
+				rigidBody.velocity.x = Constants::Player::SPEED.x;
 			}
 			else if (mMovingLeft) {
-				rigidBody.velocity.x = -100.f;
+				rigidBody.velocity.x = -Constants::Player::SPEED.x;
 			}
 			else {
 				rigidBody.velocity.x = 0.f;

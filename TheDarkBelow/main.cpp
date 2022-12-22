@@ -10,6 +10,7 @@
 #include "Systems/PlayerControlSystem.h"
 #include "ECS/Types.h"
 #include "TextureLoader.h"
+#include "Constants.h"
 
 DarkBelow::ECS::Coordinator gCoordinator;
 DarkBelow::TextureLoader gTextureLoader;
@@ -60,7 +61,7 @@ int main() {
         ECS::Transform{
             sf::Vector2f(50.f, 0.f),
             sf::Vector2f(0.f, 0.f),
-            sf::Vector2f(1, 1)
+            Constants::Player::SCALE
         });
     gCoordinator.AddComponent(
         Player,
@@ -71,7 +72,7 @@ int main() {
     gCoordinator.AddComponent(
         Player,
         ECS::Gravity{
-            sf::Vector2f(0.f, 50.f)
+            Constants::Game::GRAVITY
         });
     playerControlSystem->init(Player);
 
