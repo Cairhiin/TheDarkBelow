@@ -2,6 +2,7 @@
 #include "../ECS/Coordinator.h"
 #include "../Components/RigidBody.h"
 #include "../Components/Transform.h"
+#include "../Components/Gravity.h"
 
 extern DarkBelow::ECS::Coordinator gCoordinator;
 
@@ -15,8 +16,14 @@ namespace DarkBelow {
 			for (auto const& entity : mEntities) {
 				auto& rigidBody = gCoordinator.GetComponent<RigidBody>(entity);
 				auto& transform = gCoordinator.GetComponent<Transform>(entity);
+				auto const& gravity = gCoordinator.GetComponent<Gravity>(entity);
 
 				transform.position += rigidBody.velocity * dt;
+				rigidBody.velocity += gravity.force * dt;
+
+				if (rigidBody.velocity.y >= 400.f) {
+					rigidBody.velocity.y = 400.f;
+				}
 			}
 		}
 	}

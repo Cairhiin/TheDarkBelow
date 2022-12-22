@@ -4,6 +4,7 @@
 #include "Components/Transform.h"
 #include "Components/Sprite.h"
 #include "Components/RigidBody.h"
+#include "Components/Gravity.h"
 #include "Systems/RenderSystem.h"
 #include "Systems/PhysicsSystem.h"
 #include "Systems/PlayerControlSystem.h"
@@ -17,13 +18,14 @@ static bool quit = false;
 int main() {
     using namespace DarkBelow;
     
-    sf::RenderWindow window(sf::VideoMode(1600, 900), "The Dark Below");
+    sf::RenderWindow window(sf::VideoMode(640, 320), "The Dark Below");
     gCoordinator.init();
     gTextureLoader.init();
 
     gCoordinator.RegisterComponent<ECS::Transform>();
     gCoordinator.RegisterComponent<ECS::Sprite>();
     gCoordinator.RegisterComponent<ECS::RigidBody>();
+    gCoordinator.RegisterComponent<ECS::Gravity>();
 
     auto physicsSystem = gCoordinator.RegisterSystem<ECS::PhysicsSystem>();
     {
@@ -56,15 +58,20 @@ int main() {
     gCoordinator.AddComponent(
         Player,
         ECS::Transform{
-            sf::Vector2f(200.f, 200.f),
+            sf::Vector2f(50.f, 0.f),
             sf::Vector2f(0.f, 0.f),
             sf::Vector2f(1, 1)
         });
     gCoordinator.AddComponent(
         Player,
         ECS::RigidBody{
-            sf::Vector2f(0.0f, 0.0f),
-            sf::Vector2f(0.0f, 0.0f)
+            sf::Vector2f(0.f, 0.f),
+            sf::Vector2f(0.f, 0.f)
+        });
+    gCoordinator.AddComponent(
+        Player,
+        ECS::Gravity{
+            sf::Vector2f(0.f, 50.f)
         });
     playerControlSystem->init(Player);
 

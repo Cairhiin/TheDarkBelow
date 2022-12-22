@@ -14,10 +14,10 @@ namespace DarkBelow {
 
 			if (event.type == sf::Event::KeyPressed) {
 				if (event.key.code == sf::Keyboard::W) {
-					mMovingUp = true;
+					mMovingUp = false;
 				}
 				if (event.key.code == sf::Keyboard::S) {
-					mMovingDown = true;
+					mMovingDown = false;
 				}
 				if (event.key.code == sf::Keyboard::A) {
 					mMovingLeft = true;
@@ -40,16 +40,6 @@ namespace DarkBelow {
 				if (event.key.code == sf::Keyboard::D) {
 					mMovingRight = false;
 				}
-			}
-			
-			if (mMovingDown) {
-				rigidBody.velocity.y = 100.f;
-			}
-			else if (mMovingUp) {
-				rigidBody.velocity.y = -100.f;
-			}
-			else {
-				rigidBody.velocity.y = 0.f;
 			}
 
 			if (mMovingRight) {
