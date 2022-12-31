@@ -10,6 +10,13 @@ namespace DarkBelow {
 		else {
 			mTextures.emplace("playerChar", texture);
 		}
+
+		if (!texture.loadFromFile("images/main_lev_build_1.png")) {
+			std::cout << "[ERROR] Cannot load texture, file not found!" << std::endl;
+		}
+		else {
+			mTextures.emplace("tileLevel1", texture);
+		}
 	}
 
 	bool TextureLoader::addTexture(const std::string& id, const char* path, sf::IntRect sourceRect) {
