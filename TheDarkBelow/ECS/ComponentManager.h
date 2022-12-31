@@ -9,7 +9,6 @@
 
 namespace DarkBelow {
 	namespace ECS {
-
 		// Source: https://code.austinmorlan.com/austin/2019-ecs/
 		class ComponentManager {
 		public:

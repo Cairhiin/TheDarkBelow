@@ -14,6 +14,11 @@ namespace DarkBelow {
 			const sf::Vector2f SPEED = { 50.f, 50.f };
 			const sf::Vector2f SCALE = { 1.f, 1.f };
 		}
+
+		namespace Level {
+			const sf::Vector2i TILE_SIZE = { 16, 16 };
+			const sf::Vector2f SCALE = { 1.f, 1.f };
+		}
 	}
 }
 

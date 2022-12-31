@@ -5,11 +5,13 @@
 #include "Components/Sprite.h"
 #include "Components/RigidBody.h"
 #include "Components/Gravity.h"
+#include "Components/Collision.h"
 #include "Systems/RenderSystem.h"
 #include "Systems/PhysicsSystem.h"
 #include "Systems/PlayerControlSystem.h"
 #include "ECS/Types.h"
 #include "TextureLoader.h"
+#include "Map.h"
 #include "Constants.h"
 
 DarkBelow::ECS::Coordinator gCoordinator;
@@ -27,12 +29,14 @@ int main() {
     gCoordinator.RegisterComponent<ECS::Sprite>();
     gCoordinator.RegisterComponent<ECS::RigidBody>();
     gCoordinator.RegisterComponent<ECS::Gravity>();
+    gCoordinator.RegisterComponent<ECS::Collision>();
 
     auto physicsSystem = gCoordinator.RegisterSystem<ECS::PhysicsSystem>();
     {
         ECS::Signature signature;
         signature.set(gCoordinator.GetComponentType<ECS::RigidBody>());
         signature.set(gCoordinator.GetComponentType<ECS::Transform>());
+        signature.set(gCoordinator.GetComponentType<ECS::Collision>());
         gCoordinator.SetSystemSignature<ECS::PhysicsSystem>(signature);
     }
 
@@ -43,6 +47,13 @@ int main() {
         ECS::Signature signature;
         signature.set(gCoordinator.GetComponentType<ECS::Sprite>());
         signature.set(gCoordinator.GetComponentType<ECS::Transform>());
+        gCoordinator.SetSystemSignature<ECS::RenderSystem>(signature);
+    }
+
+    auto collisionSystem = gCoordinator.RegisterSystem<ECS::CollisionSystem>();
+    {
+        ECS::Signature signature;
+        signature.set(gCoordinator.GetComponentType<ECS::Collision>());
         gCoordinator.SetSystemSignature<ECS::RenderSystem>(signature);
     }
     
@@ -74,18 +85,28 @@ int main() {
         ECS::Gravity{
             Constants::Game::GRAVITY
         });
+    gCoordinator.AddComponent(
+        Player,
+        ECS::Collision{
+            sf::FloatRect(0.f, 0.f, 50.f, 100.f),
+            "Player"
+        });
     playerControlSystem->init(Player);
 
+    std::string mapTextureId = "tileLevel1";
+    auto level = std::make_unique<Map>(mapTextureId, Constants::Level::SCALE, Constants::Level::TILE_SIZE);
+    level->Load();
 
     sf::Texture playerTexture;
     playerTexture = gTextureLoader.getTexture("playerChar");
     sf::Sprite playerSprite;
-    playerSprite.setTexture(playerTexture);
     gCoordinator.AddComponent(
         Player,
         ECS::Sprite{
-            playerSprite
+            playerSprite,
+            playerTexture
         });
+    gCoordinator.GetComponent<ECS::Sprite>(Player).init();
 
     sf::Clock deltaClock;
     while (window.isOpen()) {

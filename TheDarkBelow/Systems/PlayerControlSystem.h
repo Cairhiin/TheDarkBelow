@@ -14,7 +14,10 @@ namespace DarkBelow {
 
 		private:
 			Entity mPlayer;
-			bool mMovingUp, mMovingDown, mMovingRight, mMovingLeft = false;
+			bool mMovingUp = false;
+			bool mMovingDown = false;
+			bool mMovingRight = false;
+			bool mMovingLeft = false;
 		};
 	}
 }
