@@ -2,11 +2,13 @@
 #define COLLISION_COMPONENT
 
 #include "SFML/Graphics/Rect.hpp"
+#include <string>
 
-namespace DarKBelow {
+namespace DarkBelow {
 	namespace ECS {
 		struct Collision {
 			sf::FloatRect hitbox;
+			std::string tag;
 		};
 	}
 }
