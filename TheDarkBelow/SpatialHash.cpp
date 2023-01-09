@@ -5,14 +5,15 @@
 
 #include "ECS/Coordinator.h"
 #include "Components/Transform.h"
+#include "Constants.h"
 
 extern DarkBelow::ECS::Coordinator gCoordinator;
 
 namespace DarkBelow {
 	void SpatialHash::CreateSpatialHash(const std::set<ECS::Entity>& colliders) {
-		float cellSize = 64.f;
-		int numberOfColumns = 20;
-		int numberOfRows = 10;
+		float cellSize = Constants::Level::SPATIAL_HASH_CELL_SIZE;
+		int numberOfColumns = Constants::Level::SPATIAL_HASH_COLUMNS;
+		int numberOfRows = Constants::Level::SPATIAL_HASH_ROWS;
 		int numberOfCells = numberOfColumns * numberOfRows;
 
 		this->spatialHash.clear();
@@ -30,8 +31,8 @@ namespace DarkBelow {
 
 	std::vector<ECS::Entity> SpatialHash::GetSurroundingCellsEntities(const sf::Vector2f& position) {
 		std::vector<ECS::Entity> surroundingEntities;
-		int numberOfColumns = 20;
-		int numberOfRows = 10;
+		int numberOfColumns = Constants::Level::SPATIAL_HASH_COLUMNS;
+		int numberOfRows = Constants::Level::SPATIAL_HASH_ROWS;
 		int cell = this->CalculateCellNumber(position);
 		int rowNumber = static_cast<int>(floor(cell / numberOfColumns));
 		int columnNumber = cell % numberOfColumns;
@@ -52,8 +53,8 @@ namespace DarkBelow {
 	}
 
 	int SpatialHash::CalculateCellNumber(const sf::Vector2f& position) {
-		float cellSize = 64.f;
-		int numberOfColumns = 20;
+		float cellSize = Constants::Level::SPATIAL_HASH_CELL_SIZE;
+		int numberOfColumns = Constants::Level::SPATIAL_HASH_COLUMNS;
 
 		int column = static_cast<int>(floor(position.x / cellSize));
 		int row = static_cast<int>(floor(position.y / cellSize));

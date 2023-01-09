@@ -96,7 +96,8 @@ int main() {
     gCoordinator.AddComponent(
         Player,
         ECS::Collision{
-            Constants::Level::PLAYER
+            Constants::Level::PLAYER,
+            { 650.f, 150.f, 48.f, 86.f }
         });
     playerControlSystem->init(Player);
 

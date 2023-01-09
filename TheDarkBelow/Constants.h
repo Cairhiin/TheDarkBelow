@@ -38,6 +38,9 @@ namespace DarkBelow {
 				MONSTER,
 				PROJECTILE,
 			};
+			constexpr float SPATIAL_HASH_CELL_SIZE = 128.f;
+			constexpr int SPATIAL_HASH_COLUMNS = 10;
+			constexpr int SPATIAL_HASH_ROWS = 5;
 		}
 	}
 }

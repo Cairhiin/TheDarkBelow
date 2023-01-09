@@ -39,7 +39,9 @@ namespace DarkBelow {
                     auto const& closeTransform = gCoordinator.GetComponent<Transform>(closeEntity);
 
                     if (collider.hitbox.intersects(closeCollider.hitbox)) {                   
-                        if (gCoordinator.GetComponent<Collision>(closeEntity).tag == Constants::Level::GROUND_TILE_2) {
+                        if (gCoordinator.GetComponent<Collision>(closeEntity).tag == Constants::Level::GROUND_TILE_3 ||
+                            gCoordinator.GetComponent<Collision>(closeEntity).tag == Constants::Level::GROUND_TILE_4) {
+                            std::cout << "PENETRATION: " << (collider.hitbox.top + collider.hitbox.height) - closeCollider.hitbox.top << std::endl;
                             auto& rigidBody = gCoordinator.GetComponent<RigidBody>(entity);
                             if (rigidBody.velocity.y > 0.f || rigidBody.velocity.y < 0.f) {
                                 rigidBody.velocity.y = 0.f;
