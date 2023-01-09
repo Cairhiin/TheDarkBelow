@@ -130,8 +130,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SpatialHash.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Systems\CollisionSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
     <ClCompile Include="Systems\PlayerControlSystem.cpp" />
     <ClCompile Include="Systems\RenderSystem.cpp" />
@@ -145,7 +147,9 @@
     <ClInclude Include="ECS\ComponentManager.h" />
     <ClInclude Include="ECS\Coordinator.h" />
     <ClInclude Include="ECS\EntityManager.h" />
+    <ClInclude Include="SpatialHash.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Systems\CollisionSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />
     <ClInclude Include="Systems\PlayerControlSystem.h" />
     <ClInclude Include="Systems\RenderSystem.h" />

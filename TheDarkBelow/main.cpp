@@ -9,10 +9,12 @@
 #include "Systems/RenderSystem.h"
 #include "Systems/PhysicsSystem.h"
 #include "Systems/PlayerControlSystem.h"
+#include "Systems/CollisionSystem.h"
 #include "ECS/Types.h"
 #include "TextureLoader.h"
 #include "Map.h"
 #include "Constants.h"
+#include "SpatialHash.h"
 
 DarkBelow::ECS::Coordinator gCoordinator;
 DarkBelow::TextureLoader gTextureLoader;
@@ -21,7 +23,7 @@ static bool quit = false;
 int main() {
     using namespace DarkBelow;
     
-    sf::RenderWindow window(sf::VideoMode(640, 320), "The Dark Below");
+    sf::RenderWindow window(sf::VideoMode(1280, 640), "The Dark Below");
     gCoordinator.init();
     gTextureLoader.init();
 
@@ -36,7 +38,7 @@ int main() {
         ECS::Signature signature;
         signature.set(gCoordinator.GetComponentType<ECS::RigidBody>());
         signature.set(gCoordinator.GetComponentType<ECS::Transform>());
-        signature.set(gCoordinator.GetComponentType<ECS::Collision>());
+        signature.set(gCoordinator.GetComponentType<ECS::Gravity>());
         gCoordinator.SetSystemSignature<ECS::PhysicsSystem>(signature);
     }
 
@@ -54,6 +56,8 @@ int main() {
     {
         ECS::Signature signature;
         signature.set(gCoordinator.GetComponentType<ECS::Collision>());
+        signature.set(gCoordinator.GetComponentType<ECS::RigidBody>());
+        signature.set(gCoordinator.GetComponentType<ECS::Transform>());
         gCoordinator.SetSystemSignature<ECS::RenderSystem>(signature);
     }
     
@@ -66,11 +70,15 @@ int main() {
         gCoordinator.SetSystemSignature<ECS::PlayerControlSystem>(signature);
     }
 
+    std::string mapTextureId = "tileLevel1";
+    auto level = std::make_unique<Map>(mapTextureId, Constants::Level::SCALE, Constants::Level::TILE_SIZE);
+    level->Load();
+
     auto Player = gCoordinator.CreateEntity();
     gCoordinator.AddComponent(
         Player,
         ECS::Transform{
-            sf::Vector2f(50.f, 0.f),
+            sf::Vector2f(650.f, 150.f),
             sf::Vector2f(0.f, 0.f),
             Constants::Player::SCALE
         });
@@ -88,14 +96,9 @@ int main() {
     gCoordinator.AddComponent(
         Player,
         ECS::Collision{
-            sf::FloatRect(0.f, 0.f, 50.f, 100.f),
-            "Player"
+            Constants::Level::PLAYER
         });
     playerControlSystem->init(Player);
-
-    std::string mapTextureId = "tileLevel1";
-    auto level = std::make_unique<Map>(mapTextureId, Constants::Level::SCALE, Constants::Level::TILE_SIZE);
-    level->Load();
 
     sf::Texture playerTexture;
     playerTexture = gTextureLoader.getTexture("playerChar");
@@ -124,9 +127,11 @@ int main() {
         }
 
         physicsSystem->update(dt);
+        collisionSystem->update();
 
         window.clear();
         renderSystem->draw(window);
+        window.draw(*level);
         window.display();
     }
 

@@ -7,6 +7,8 @@
 #include "../Components/Sprite.h"
 #include "../Components/Transform.h"
 
+#include "SFML/Graphics/RectangleShape.hpp"
+
 extern DarkBelow::TextureLoader gTextureLoader;
 extern DarkBelow::ECS::Coordinator gCoordinator;
 
@@ -18,9 +20,10 @@ namespace DarkBelow {
 
 		void RenderSystem::draw(sf::RenderWindow& window) {
 			for (auto const& entity : mEntities) {
-				sf::Vector2f position = gCoordinator.GetComponent<Transform>(entity).position;
+				auto& const transform = gCoordinator.GetComponent<Transform>(entity);
 				sf::Sprite sprite = gCoordinator.GetComponent<Sprite>(entity).sprite;
-				sprite.setPosition(position);
+				sprite.setPosition(transform.position);
+				sprite.setScale(transform.scale);
 				window.draw(sprite);
 			}
 		}

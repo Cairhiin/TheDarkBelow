@@ -1,14 +1,17 @@
 #ifndef COLLISION_COMPONENT
 #define COLLISION_COMPONENT
 
-#include "SFML/Graphics/Rect.hpp"
 #include <string>
+
+#include "SFML/Graphics/Rect.hpp"
+#include "../Constants.h"
 
 namespace DarkBelow {
 	namespace ECS {
 		struct Collision {
+			Constants::Level::TileNames tag;
 			sf::FloatRect hitbox;
-			std::string tag;
+			bool onSolidGround = false;
 		};
 	}
 }

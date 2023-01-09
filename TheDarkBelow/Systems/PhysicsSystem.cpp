@@ -20,7 +20,7 @@ namespace DarkBelow {
 				auto const& gravity = gCoordinator.GetComponent<Gravity>(entity);
 
 				transform.position += rigidBody.velocity * dt;
-				rigidBody.velocity += gravity.force * dt;
+				//rigidBody.velocity += gravity.force * dt;
 
 				if (rigidBody.velocity.y >= Constants::Game::TERMINAL_VELOCITY) {
 					rigidBody.velocity.y = Constants::Game::TERMINAL_VELOCITY;
