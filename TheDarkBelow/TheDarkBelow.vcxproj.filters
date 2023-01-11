@@ -48,6 +48,9 @@
     <ClCompile Include="SpatialHash.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\AnimationSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Types.h">
@@ -110,9 +113,18 @@
     <ClInclude Include="SpatialHash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Components\Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\AnimationSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="images\main_lev_build_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\player\idle.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -108,7 +108,8 @@ int main() {
         Player,
         ECS::Sprite{
             playerSprite,
-            playerTexture
+            playerTexture,
+            { 0, 40, 115, 40 }
         });
     gCoordinator.GetComponent<ECS::Sprite>(Player).init();
 

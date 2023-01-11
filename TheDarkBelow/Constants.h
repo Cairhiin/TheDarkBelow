@@ -12,7 +12,7 @@ namespace DarkBelow {
 
 		namespace Player {
 			const sf::Vector2f SPEED = { 100.f, 100.f };
-			const sf::Vector2f SCALE = { 1.f, 1.f };
+			const sf::Vector2f SCALE = { 2.f, 2.f };
 			const sf::Vector2f JUMP_FORCE = { 0.f, -200.f };
 		}
 
