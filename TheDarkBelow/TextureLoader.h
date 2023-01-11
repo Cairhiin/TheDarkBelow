@@ -7,12 +7,14 @@
 namespace DarkBelow {
 	class TextureLoader {
 	public:	
-		void init();
-		bool addTexture(const std::string& id, const char* path, sf::IntRect sourceRect);
-		sf::Texture getTexture(const std::string& id);
+		~TextureLoader();
+		TextureLoader(const TextureLoader&) = delete;
+		TextureLoader& operator=(const TextureLoader&) = delete;
+		sf::Texture* getTexture(const std::string& name);
+		sf::Texture* loadTexture(const std::string& name, const std::string& path);
 
 	private:
-		std::map<const std::string, sf::Texture> mTextures;
+		std::map<const std::string, sf::Texture*> mTextures;
 	};
 }
 
