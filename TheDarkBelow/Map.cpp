@@ -11,15 +11,15 @@
 #include "Components/Collision.h"
 #include "TextureLoader.h"
 
-extern DarkBelow::ECS::Coordinator gCoordinator;
 extern DarkBelow::TextureLoader gTextureLoader;
+extern DarkBelow::ECS::Coordinator gCoordinator;
 
 namespace DarkBelow {
 	Map::Map(const std::string& textureID, sf::Vector2f scale, sf::Vector2i tileSize)
 		: mTextureId(textureID), mScale(scale), mTileSize(tileSize) {}
 
 	 void Map::Load() {
-		mTileset = gTextureLoader.getTexture(mTextureId);
+		mTileset = gTextureLoader.loadTexture(mTextureId, "images/main_lev_build_1.png");
 		this->setScale(this->mScale);	
 		std::array<std::array<int, 40>, 20> level {
 			{{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },

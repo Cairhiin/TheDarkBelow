@@ -1,8 +1,7 @@
-#ifndef MAP
-#define MAP
+#ifndef MAP_LOADER
+#define MAP_LOADER
 
 #include <string>
-#include <vector>
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/Sprite.hpp"

@@ -20,8 +20,9 @@ namespace DarkBelow {
 
 		void RenderSystem::draw(sf::RenderWindow& window) {
 			for (auto const& entity : mEntities) {
-				auto& const transform = gCoordinator.GetComponent<Transform>(entity);
-				sf::Sprite sprite = gCoordinator.GetComponent<Sprite>(entity).sprite;
+				auto const& transform = gCoordinator.GetComponent<Transform>(entity);
+				auto& spriteComponent = gCoordinator.GetComponent<Sprite>(entity);
+				sf::Sprite sprite = spriteComponent.sprites[spriteComponent.currentSpriteName];
 				sprite.setPosition(transform.position);
 				sprite.setScale(transform.scale);
 				window.draw(sprite);

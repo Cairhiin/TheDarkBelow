@@ -16,8 +16,8 @@
 #include "Constants.h"
 #include "SpatialHash.h"
 
-DarkBelow::ECS::Coordinator gCoordinator;
 DarkBelow::TextureLoader gTextureLoader;
+DarkBelow::ECS::Coordinator gCoordinator;
 static bool quit = false;
 
 int main() {
@@ -25,7 +25,6 @@ int main() {
     
     sf::RenderWindow window(sf::VideoMode(1280, 640), "The Dark Below");
     gCoordinator.init();
-    gTextureLoader.init();
 
     gCoordinator.RegisterComponent<ECS::Transform>();
     gCoordinator.RegisterComponent<ECS::Sprite>();
@@ -102,14 +101,15 @@ int main() {
     playerControlSystem->init(Player);
 
     sf::Texture playerTexture;
-    playerTexture = gTextureLoader.getTexture("playerChar");
-    sf::Sprite playerSprite;
+    playerTexture = gTextureLoader.loadTexture("playerChar", "images/player/idle.png");
+    sf::Sprite playerSpriteIdle;
+    playerSpriteIdle.setTexture(playerTexture);
     gCoordinator.AddComponent(
         Player,
         ECS::Sprite{
-            playerSprite,
-            playerTexture,
-            { 0, 40, 115, 40 }
+            {{ "idle", playerSpriteIdle }},
+            { 0, 40, 115, 40 },
+            "idle"
         });
     gCoordinator.GetComponent<ECS::Sprite>(Player).init();
 
