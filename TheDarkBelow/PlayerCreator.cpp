@@ -13,12 +13,7 @@ extern DarkBelow::TextureLoader gTextureLoader;
 
 namespace DarkBelow {
     using namespace ECS;
-    Entity& PlayerCreator::CreatePlayerEntity(
-        /* Will be turned into an array in the future
-           when there's more animation texture sheets 
-        */
-        const sf::Texture& playerTextureIdle
-    ) {
+    Entity& PlayerCreator::CreatePlayerEntity(const std::array<sf::Texture, 4>& playerTextures) {
         auto Player = gCoordinator.CreateEntity();
         gCoordinator.AddComponent(
             Player,
@@ -46,18 +41,29 @@ namespace DarkBelow {
             });   
         
         sf::Sprite playerSpriteIdle;
-        playerSpriteIdle.setTexture(playerTextureIdle);
+        playerSpriteIdle.setTexture(playerTextures[0]);
         AnimationData idleAnimation{
             10,
             12,
             Constants::AnimationType::IDLE,
             { sf::IntRect(0, 40, 108, 40) }
         };
+        sf::Sprite playerSpriteRun;
+        playerSpriteRun.setTexture(playerTextures[1]);
+        AnimationData runAnimation{
+            10,
+            12,
+            Constants::AnimationType::RUN,
+            { sf::IntRect(0, 40, 108, 40) }
+        };
 
         gCoordinator.AddComponent(
             Player,
             ECS::Sprite{
-                {{ idleAnimation.type, playerSpriteIdle }},
+                {
+                    { idleAnimation.type, playerSpriteIdle },
+                    { runAnimation.type, playerSpriteRun }
+                },
                 { 0, 40, 108, 40 }
             });
         gCoordinator.AddComponent(

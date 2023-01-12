@@ -87,7 +87,11 @@ int main() {
 
     sf::Texture playerTexture;
     playerTexture = gTextureLoader.loadTexture("playerChar", "images/player/idle.png");
-    auto& Player = PlayerCreator::CreatePlayerEntity(playerTexture);
+    std::array<sf::Texture, 4> playerTextures;
+    playerTextures[0] = playerTexture;
+    playerTexture = gTextureLoader.loadTexture("playerChar", "images/player/run.png");
+    playerTextures[1] = playerTexture;
+    auto& Player = PlayerCreator::CreatePlayerEntity(playerTextures);
     playerControlSystem->init(Player);
 
     sf::Clock deltaClock;

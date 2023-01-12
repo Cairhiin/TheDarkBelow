@@ -8,7 +8,7 @@
 namespace DarkBelow {
 	class PlayerCreator {
 	public:
-		static ECS::Entity& CreatePlayerEntity(const sf::Texture& playerTextureIdle);
+		static ECS::Entity& CreatePlayerEntity(const std::array<sf::Texture, 4>& playerTextures);
 
 	};
 }

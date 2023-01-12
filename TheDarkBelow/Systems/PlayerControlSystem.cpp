@@ -5,6 +5,7 @@
 #include "../ECS/Coordinator.h"
 #include "../Components/RigidBody.h"
 #include "../Components/Collision.h"
+#include "../Components/Animation.h"
 #include "../Constants.h"
 
 extern DarkBelow::ECS::Coordinator gCoordinator;
@@ -18,18 +19,23 @@ namespace DarkBelow {
 		void PlayerControlSystem::update(sf::Event event) {
 			auto& rigidBody = gCoordinator.GetComponent<RigidBody>(mPlayer);
 			auto& collider = gCoordinator.GetComponent<Collision>(mPlayer);
+			auto& animComponent = gCoordinator.GetComponent<Animation>(mPlayer);
 
 			if (event.type == sf::Event::KeyPressed) {
 				if (event.key.code == sf::Keyboard::W) {
+					animComponent.animation.type = Constants::RUN;
 					mMovingUp = /* false */ true;
 				}
 				if (event.key.code == sf::Keyboard::S) {
+					animComponent.animation.type = Constants::RUN;
 					mMovingDown = /* false */ true;
 				}
 				if (event.key.code == sf::Keyboard::A /* && collider.onSolidGround */) {
+					animComponent.animation.type = Constants::RUN;
 					mMovingLeft = true;
 				}
 				if (event.key.code == sf::Keyboard::D /* && collider.onSolidGround */) {
+					animComponent.animation.type = Constants::RUN;
 					mMovingRight = true;
 				}
 				if (event.key.code == sf::Keyboard::Space && collider.onSolidGround) {
@@ -39,15 +45,19 @@ namespace DarkBelow {
 
 			if (event.type == sf::Event::KeyReleased) {
 				if (event.key.code == sf::Keyboard::W) {
+					animComponent.animation.type = Constants::IDLE;
 					mMovingUp = false;
 				}
 				if (event.key.code == sf::Keyboard::S) {
+					animComponent.animation.type = Constants::IDLE;
 					mMovingDown = false;
 				}
 				if (event.key.code == sf::Keyboard::A) {
+					animComponent.animation.type = Constants::IDLE;
 					mMovingLeft = false;
 				}
 				if (event.key.code == sf::Keyboard::D) {
+					animComponent.animation.type = Constants::IDLE;
 					mMovingRight = false;
 				}
 			}

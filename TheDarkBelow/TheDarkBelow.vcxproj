@@ -130,7 +130,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="PlayerCreator.cpp" />
     <ClCompile Include="Systems\AnimationSystem.cpp" />
     <ClCompile Include="SpatialHash.cpp" />
@@ -171,6 +170,7 @@
   <ItemGroup>
     <Image Include="images\main_lev_build_1.png" />
     <Image Include="images\player\idle.png" />
+    <Image Include="images\player\run.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

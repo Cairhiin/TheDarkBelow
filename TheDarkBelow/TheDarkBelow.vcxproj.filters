@@ -51,9 +51,6 @@
     <ClCompile Include="Systems\AnimationSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -137,6 +134,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="images\player\idle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\player\run.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
