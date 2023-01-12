@@ -8,13 +8,15 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include "../Constants.h"
+#include "../Components/Animation.h"
 
 namespace DarkBelow {
 	namespace ECS {
 		struct Sprite {
-			std::map<const std::string, sf::Sprite> sprites;
+			std::map<Constants::AnimationType, sf::Sprite> sprites;
 			sf::IntRect srcRect = sf::IntRect(0, 0, 0, 0);
-			std::string currentSpriteName;
+			Constants::AnimationType currentSpriteName = Constants::AnimationType::IDLE;
+			int offset = 0;
 
 			void init() {
 				if (srcRect.height != 0) {

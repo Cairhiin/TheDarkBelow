@@ -23,6 +23,7 @@ namespace DarkBelow {
 				auto const& transform = gCoordinator.GetComponent<Transform>(entity);
 				auto& spriteComponent = gCoordinator.GetComponent<Sprite>(entity);
 				sf::Sprite sprite = spriteComponent.sprites[spriteComponent.currentSpriteName];
+				sprite.setTextureRect(spriteComponent.srcRect);
 				sprite.setPosition(transform.position);
 				sprite.setScale(transform.scale);
 				window.draw(sprite);

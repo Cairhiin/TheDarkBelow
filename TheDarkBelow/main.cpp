@@ -6,15 +6,18 @@
 #include "Components/RigidBody.h"
 #include "Components/Gravity.h"
 #include "Components/Collision.h"
+#include "Components/Animation.h"
 #include "Systems/RenderSystem.h"
 #include "Systems/PhysicsSystem.h"
 #include "Systems/PlayerControlSystem.h"
 #include "Systems/CollisionSystem.h"
+#include "Systems/AnimationSystem.h"
 #include "ECS/Types.h"
 #include "TextureLoader.h"
 #include "Map.h"
 #include "Constants.h"
 #include "SpatialHash.h"
+#include "Animation.h"
 
 DarkBelow::TextureLoader gTextureLoader;
 DarkBelow::ECS::Coordinator gCoordinator;
@@ -31,6 +34,7 @@ int main() {
     gCoordinator.RegisterComponent<ECS::RigidBody>();
     gCoordinator.RegisterComponent<ECS::Gravity>();
     gCoordinator.RegisterComponent<ECS::Collision>();
+    gCoordinator.RegisterComponent<ECS::Animation>();
 
     auto physicsSystem = gCoordinator.RegisterSystem<ECS::PhysicsSystem>();
     {
@@ -49,6 +53,14 @@ int main() {
         signature.set(gCoordinator.GetComponentType<ECS::Sprite>());
         signature.set(gCoordinator.GetComponentType<ECS::Transform>());
         gCoordinator.SetSystemSignature<ECS::RenderSystem>(signature);
+    }
+
+    auto animationSystem = gCoordinator.RegisterSystem<ECS::AnimationSystem>();
+    {
+        ECS::Signature signature;
+        signature.set(gCoordinator.GetComponentType<ECS::Sprite>());
+        signature.set(gCoordinator.GetComponentType<ECS::Animation>());
+        gCoordinator.SetSystemSignature<ECS::AnimationSystem>(signature);
     }
 
     auto collisionSystem = gCoordinator.RegisterSystem<ECS::CollisionSystem>();
@@ -104,12 +116,24 @@ int main() {
     playerTexture = gTextureLoader.loadTexture("playerChar", "images/player/idle.png");
     sf::Sprite playerSpriteIdle;
     playerSpriteIdle.setTexture(playerTexture);
+    AnimationData idleAnimation{
+        10,
+        12,
+        Constants::AnimationType::IDLE,
+        { sf::IntRect( 0, 40, 108, 40 ) }
+    };
+
     gCoordinator.AddComponent(
         Player,
         ECS::Sprite{
-            {{ "idle", playerSpriteIdle }},
-            { 0, 40, 115, 40 },
-            "idle"
+            {{ idleAnimation.type, playerSpriteIdle }},
+            { 0, 40, 108, 40 }
+        });
+    gCoordinator.AddComponent(
+        Player,
+        ECS::Animation{
+            idleAnimation,
+            20
         });
     gCoordinator.GetComponent<ECS::Sprite>(Player).init();
 
@@ -129,6 +153,7 @@ int main() {
         }
 
         physicsSystem->update(dt);
+        animationSystem->update(dt);
         collisionSystem->update();
 
         window.clear();

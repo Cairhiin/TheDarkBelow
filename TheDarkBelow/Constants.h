@@ -42,6 +42,14 @@ namespace DarkBelow {
 			constexpr int SPATIAL_HASH_COLUMNS = 10;
 			constexpr int SPATIAL_HASH_ROWS = 5;
 		}
+
+		enum AnimationType {
+			IDLE,
+			ATTACK,
+			TAKE_HIT,
+			DEATH,
+			RUN
+		};
 	}
 }
 
