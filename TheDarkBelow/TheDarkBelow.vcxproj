@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="PlayerCreator.cpp" />
     <ClCompile Include="Systems\AnimationSystem.cpp" />
     <ClCompile Include="SpatialHash.cpp" />
     <ClCompile Include="main.cpp" />
@@ -143,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="PlayerCreator.h" />
     <ClInclude Include="Systems\AnimationSystem.h" />
     <ClInclude Include="Components\Animation.h" />
     <ClInclude Include="Components\Collision.h" />

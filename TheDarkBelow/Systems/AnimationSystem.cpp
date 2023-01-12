@@ -21,7 +21,7 @@ namespace DarkBelow {
 					) {
 					spriteComponent.srcRect.left = 0;
 				}
-
+				
 				if (this->timer >= animationComponent.speed) {
 					spriteComponent.srcRect.left +=
 						(spriteComponent.srcRect.width + animationComponent.animation.offset);

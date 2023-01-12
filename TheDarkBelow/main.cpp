@@ -17,7 +17,7 @@
 #include "Map.h"
 #include "Constants.h"
 #include "SpatialHash.h"
-#include "Animation.h"
+#include "PlayerCreator.h"
 
 DarkBelow::TextureLoader gTextureLoader;
 DarkBelow::ECS::Coordinator gCoordinator;
@@ -85,57 +85,10 @@ int main() {
     auto level = std::make_unique<Map>(mapTextureId, Constants::Level::SCALE, Constants::Level::TILE_SIZE);
     level->Load();
 
-    auto Player = gCoordinator.CreateEntity();
-    gCoordinator.AddComponent(
-        Player,
-        ECS::Transform{
-            sf::Vector2f(650.f, 150.f),
-            sf::Vector2f(0.f, 0.f),
-            Constants::Player::SCALE
-        });
-    gCoordinator.AddComponent(
-        Player,
-        ECS::RigidBody{
-            sf::Vector2f(0.f, 0.f),
-            sf::Vector2f(0.f, 0.f)
-        });
-    gCoordinator.AddComponent(
-        Player,
-        ECS::Gravity{
-            Constants::Game::GRAVITY
-        });
-    gCoordinator.AddComponent(
-        Player,
-        ECS::Collision{
-            Constants::Level::PLAYER,
-            { 650.f, 150.f, 48.f, 86.f }
-        });
-    playerControlSystem->init(Player);
-
     sf::Texture playerTexture;
     playerTexture = gTextureLoader.loadTexture("playerChar", "images/player/idle.png");
-    sf::Sprite playerSpriteIdle;
-    playerSpriteIdle.setTexture(playerTexture);
-    AnimationData idleAnimation{
-        10,
-        12,
-        Constants::AnimationType::IDLE,
-        { sf::IntRect( 0, 40, 108, 40 ) }
-    };
-
-    gCoordinator.AddComponent(
-        Player,
-        ECS::Sprite{
-            {{ idleAnimation.type, playerSpriteIdle }},
-            { 0, 40, 108, 40 }
-        });
-    gCoordinator.AddComponent(
-        Player,
-        ECS::Animation{
-            idleAnimation,
-            20
-        });
-    gCoordinator.GetComponent<ECS::Sprite>(Player).init();
+    auto& Player = PlayerCreator::CreatePlayerEntity(playerTexture);
+    playerControlSystem->init(Player);
 
     sf::Clock deltaClock;
     while (window.isOpen()) {
