@@ -13,7 +13,12 @@ extern DarkBelow::TextureLoader gTextureLoader;
 
 namespace DarkBelow {
     using namespace ECS;
-    Entity& PlayerCreator::CreatePlayerEntity(const sf::Texture& playerTextureIdle) {
+    Entity& PlayerCreator::CreatePlayerEntity(
+        /* Will be turned into an array in the future
+           when there's more animation texture sheets 
+        */
+        const sf::Texture& playerTextureIdle
+    ) {
         auto Player = gCoordinator.CreateEntity();
         gCoordinator.AddComponent(
             Player,
