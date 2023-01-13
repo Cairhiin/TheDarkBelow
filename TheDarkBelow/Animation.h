@@ -3,14 +3,20 @@
 
 #include <array>
 #include "SFML/Graphics/Rect.hpp"
-#include "Constants.h"
 
 namespace DarkBelow {
+	enum AnimationType {
+		IDLE,
+		ATTACK_1,
+		TAKE_HIT,
+		DEATH,
+		RUN
+	};
 	struct AnimationData {
 		size_t frames;
 		size_t offset;
-		Constants::AnimationType type;
-		std::array<sf::IntRect, 10> sourceRect;
+		AnimationType type;
+		std::array<sf::IntRect, 10> hitboxRectPerFrame;
 		bool playsContinuously = false;
 		bool isPriorityAnimation = false;
 	};

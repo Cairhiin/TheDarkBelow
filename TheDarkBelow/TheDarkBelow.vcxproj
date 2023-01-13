@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="images\main_lev_build_1.png" />
+    <Image Include="images\player\attack_1.png" />
     <Image Include="images\player\idle.png" />
     <Image Include="images\player\run.png" />
   </ItemGroup>

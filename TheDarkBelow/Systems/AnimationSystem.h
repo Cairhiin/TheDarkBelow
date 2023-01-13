@@ -13,9 +13,10 @@ namespace DarkBelow {
 		public:
 			void init();
 			void update(float dt);
+			const AnimationData& getAnimation(AnimationType type) const;
 
 		private:
-			size_t timer;
+			float timer;
 		};
 	}
 }
