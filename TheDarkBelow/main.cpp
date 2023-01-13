@@ -78,6 +78,9 @@ int main() {
     {
         ECS::Signature signature;
         signature.set(gCoordinator.GetComponentType<ECS::RigidBody>());
+        signature.set(gCoordinator.GetComponentType<ECS::Transform>());
+        signature.set(gCoordinator.GetComponentType<ECS::Collision>());
+        signature.set(gCoordinator.GetComponentType<ECS::Transform>());
         gCoordinator.SetSystemSignature<ECS::PlayerControlSystem>(signature);
     }
 

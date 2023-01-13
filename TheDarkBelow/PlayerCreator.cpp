@@ -56,7 +56,9 @@ namespace DarkBelow {
             Constants::AnimationType::RUN,
             { sf::IntRect(0, 40, 108, 40) }
         };
-
+        
+        playerSpriteIdle.setOrigin(54, 20);
+        playerSpriteRun.setOrigin(54, 20);
         gCoordinator.AddComponent(
             Player,
             ECS::Sprite{

@@ -6,6 +6,7 @@
 #include "../Components/RigidBody.h"
 #include "../Components/Collision.h"
 #include "../Components/Animation.h"
+#include "../Components/Transform.h"
 #include "../Constants.h"
 
 extern DarkBelow::ECS::Coordinator gCoordinator;
@@ -20,6 +21,7 @@ namespace DarkBelow {
 			auto& rigidBody = gCoordinator.GetComponent<RigidBody>(mPlayer);
 			auto& collider = gCoordinator.GetComponent<Collision>(mPlayer);
 			auto& animComponent = gCoordinator.GetComponent<Animation>(mPlayer);
+			auto& transform = gCoordinator.GetComponent<Transform>(mPlayer);
 
 			if (event.type == sf::Event::KeyPressed) {
 				if (event.key.code == sf::Keyboard::W) {
@@ -32,10 +34,12 @@ namespace DarkBelow {
 				}
 				if (event.key.code == sf::Keyboard::A /* && collider.onSolidGround */) {
 					animComponent.animation.type = Constants::RUN;
+					transform.scale = { -2.f, 2.f };
 					mMovingLeft = true;
 				}
 				if (event.key.code == sf::Keyboard::D /* && collider.onSolidGround */) {
 					animComponent.animation.type = Constants::RUN;
+					transform.scale = { 2.f, 2.f };
 					mMovingRight = true;
 				}
 				if (event.key.code == sf::Keyboard::Space && collider.onSolidGround) {
