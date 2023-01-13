@@ -33,7 +33,7 @@ namespace DarkBelow {
 		} else {
 			int x = 0;
 			int y = 0;
-			while (levelData) {
+			while (!levelData.eof()) {
 				char firstDigit = levelData.get();
 				if (firstDigit == ' ' || firstDigit == -1) continue;
 				if (firstDigit == '\n') {
@@ -47,7 +47,7 @@ namespace DarkBelow {
 				int tileType = std::stoi(tile);
 				
 				// Setting the position of the corners
-				sf::Vertex* quad = &mVertices[(y + x * 20) * 4];
+				sf::Vertex* quad = &mVertices[(y + static_cast<size_t>(x) * 20) * 4];
 				quad[0].position = sf::Vector2f(x * mTileSize.x, y * mTileSize.y);
 				quad[1].position = sf::Vector2f((x + 1) * mTileSize.x, y * mTileSize.y);
 				quad[2].position = sf::Vector2f((x + 1) * mTileSize.x, (y + 1) * mTileSize.y);

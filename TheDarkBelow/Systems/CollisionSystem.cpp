@@ -38,10 +38,16 @@ namespace DarkBelow {
                     auto const& closeCollider = gCoordinator.GetComponent<Collision>(closeEntity);
                     auto const& closeTransform = gCoordinator.GetComponent<Transform>(closeEntity);
 
-                    if (collider.hitbox.intersects(closeCollider.hitbox)) {                   
+                    sf::FloatRect overlap; // store the overlap between the hitboxes
+                    if (collider.hitbox.intersects(closeCollider.hitbox, overlap)) {                   
                         if (gCoordinator.GetComponent<Collision>(closeEntity).tag == Constants::Level::GROUND_TILE_3 ||
                             gCoordinator.GetComponent<Collision>(closeEntity).tag == Constants::Level::GROUND_TILE_4) {
-                            std::cout << "PENETRATION: " << (collider.hitbox.top + collider.hitbox.height) - closeCollider.hitbox.top << std::endl;
+                            
+                            auto collisionNormal = closeTransform.position - transform.position;
+                            auto manifold = this->getManifold(overlap, collisionNormal);
+                            transform.position.x += this->resolve(manifold).x;
+                            transform.position.y += this->resolve(manifold).y;
+                            
                             auto& rigidBody = gCoordinator.GetComponent<RigidBody>(entity);
                             if (rigidBody.velocity.y > 0.f || rigidBody.velocity.y < 0.f) {
                                 rigidBody.velocity.y = 0.f;
@@ -59,5 +65,24 @@ namespace DarkBelow {
                 }
             }
 		}
+
+        sf::Vector3f CollisionSystem::getManifold(const sf::FloatRect& overlap, const sf::Vector2f& collisionNormal) {
+            sf::Vector3f manifold;
+
+            if (overlap.width < overlap.height) {
+                manifold.x = (collisionNormal.x < 0) ? 1.f : -1.f;
+                manifold.z = overlap.width;
+            } else {
+                manifold.y = (collisionNormal.y < 0) ? 1.f : -1.f;
+                manifold.z = overlap.height;
+            }
+            
+            return manifold;
+        }
+
+        sf::Vector2f CollisionSystem::resolve(const sf::Vector3f& manifold) {
+            sf::Vector2f normal(manifold.x, manifold.y);
+            return normal * manifold.z;
+        }
 	}
 }
