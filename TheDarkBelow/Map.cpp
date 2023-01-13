@@ -2,6 +2,7 @@
 
 #include <array>
 #include <iostream>
+#include <fstream>
 
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/Sprite.hpp"
@@ -21,62 +22,60 @@ namespace DarkBelow {
 	 void Map::Load() {
 		mTileset = gTextureLoader.loadTexture(mTextureId, "images/main_lev_build_1.png");
 		this->setScale(this->mScale);	
-		std::array<std::array<int, 40>, 20> level {
-			{{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 7, 8, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 1, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 9, 10, 0, 0, 0, 0, 0, 0, 0, 3, 4, 3, 4, 3, 4, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 11, 12, 0, 0, 0, 0, 0, 0, 0, 5, 6, 5, 6, 5, 6, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 9, 10, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2 },
-			{ 11, 12, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4 },
-			{ 0, 0, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6 }}
-		};
 		
 		mVertices.setPrimitiveType(sf::Quads);
 		mVertices.resize(3200);
-
-		for (int row = 0; row < level.size(); ++row) {
-			for (int column = 0; column < level[row].size(); ++column) {
-				int x = column;
-				int y = row;
-				sf::Vertex* quad = &mVertices[(y + x * level.size()) * 4];
+		std::string fileName = "assets/act1_level1.txt";
+		std::fstream levelData{ fileName };
+		
+		if (!levelData.is_open()) {
+			std::cout << "failed to open " << fileName << '\n';
+		} else {
+			int x = 0;
+			int y = 0;
+			while (levelData) {
+				char firstDigit = levelData.get();
+				if (firstDigit == ' ' || firstDigit == -1) continue;
+				if (firstDigit == '\n') {
+					++y;
+					x = 0;
+					continue;
+				}
+				char secondDigit = levelData.get();
+				std::string tile =	std::to_string(firstDigit - '0') + 
+									std::to_string(secondDigit - '0');
+				int tileType = std::stoi(tile);
+				
+				// Setting the position of the corners
+				sf::Vertex* quad = &mVertices[(y + x * 20) * 4];
 				quad[0].position = sf::Vector2f(x * mTileSize.x, y * mTileSize.y);
 				quad[1].position = sf::Vector2f((x + 1) * mTileSize.x, y * mTileSize.y);
 				quad[2].position = sf::Vector2f((x + 1) * mTileSize.x, (y + 1) * mTileSize.y);
 				quad[3].position = sf::Vector2f(x * mTileSize.x, (y + 1) * mTileSize.y);
+				
+				quad[0].texCoords = this->GetTextureCoordinates(tileType);
+				quad[1].texCoords = {
+					this->GetTextureCoordinates(tileType).x + mTileSize.x,
+					this->GetTextureCoordinates(tileType).y
+				};
+				quad[2].texCoords = {
+					this->GetTextureCoordinates(tileType).x + mTileSize.x,
+					this->GetTextureCoordinates(tileType).y + mTileSize.y
+				};
+				quad[3].texCoords = {
+					this->GetTextureCoordinates(tileType).x,
+					this->GetTextureCoordinates(tileType).y + mTileSize.y
+				};
 
-				quad[0].texCoords = this->GetTextureCoordinates(level[row][column]);
-				quad[1].texCoords = { 
-					this->GetTextureCoordinates(level[row][column]).x + mTileSize.x,
-					this->GetTextureCoordinates(level[row][column]).y
-				};
-				quad[2].texCoords = { 
-					this->GetTextureCoordinates(level[row][column]).x + mTileSize.x,
-					this->GetTextureCoordinates(level[row][column]).y + mTileSize.y
-				};
-				quad[3].texCoords = { 
-					this->GetTextureCoordinates(level[row][column]).x,
-					this->GetTextureCoordinates(level[row][column]).y + mTileSize.y
-				};
-				if (level[row][column] != 0) {
+				// Add collision component to blocking tiles
+				if (tileType != 0) {
 					this->AddCollision(
-						static_cast<float>(x), 
-						static_cast<float>(y), 
-						static_cast<Constants::Level::TileNames>(level[row][column])
+						static_cast<float>(x),
+						static_cast<float>(y),
+						static_cast<Constants::Level::TileNames>(tileType)
 					);
 				}
+				++x;
 			}
 		}
 	}

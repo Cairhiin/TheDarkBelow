@@ -172,6 +172,9 @@
     <Image Include="images\player\idle.png" />
     <Image Include="images\player\run.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\act1_level1.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
