@@ -12,7 +12,6 @@ Gravity is currently disabled but working to test collision and the spatial hash
 
 ## To do
 
-- Implement a map loader
 - Add more player animations
 - Add enemies
 - Add pickups
