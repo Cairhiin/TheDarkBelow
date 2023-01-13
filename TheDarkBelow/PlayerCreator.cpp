@@ -42,36 +42,30 @@ namespace DarkBelow {
         
         sf::Sprite playerSpriteIdle;
         playerSpriteIdle.setTexture(playerTextures[0]);
-        AnimationData idleAnimation{
-            10,
-            12,
-            Constants::AnimationType::IDLE,
-            { sf::IntRect(0, 40, 108, 40) }
-        };
+        playerSpriteIdle.setOrigin(54, 20);
+
         sf::Sprite playerSpriteRun;
         playerSpriteRun.setTexture(playerTextures[1]);
-        AnimationData runAnimation{
-            10,
-            12,
-            Constants::AnimationType::RUN,
-            { sf::IntRect(0, 40, 108, 40) }
-        };
-        
-        playerSpriteIdle.setOrigin(54, 20);
         playerSpriteRun.setOrigin(54, 20);
+
+        sf::Sprite playerSpriteAttack_1;
+        playerSpriteAttack_1.setTexture(playerTextures[2]);
+        playerSpriteAttack_1.setOrigin(52, 20);
+
         gCoordinator.AddComponent(
             Player,
             ECS::Sprite{
                 {
-                    { idleAnimation.type, playerSpriteIdle },
-                    { runAnimation.type, playerSpriteRun }
+                    { Constants::Player::idleAnimation.type, playerSpriteIdle },
+                    { Constants::Player::runAnimation.type, playerSpriteRun },
+                    { Constants::Player::attack_1_Animation.type, playerSpriteAttack_1 }
                 },
-                { 0, 40, 108, 40 }
+                { 0, 20, 120, 60 }
             });
         gCoordinator.AddComponent(
             Player,
             ECS::Animation{
-                idleAnimation,
+                Constants::Player::idleAnimation,
                 100
             });
         gCoordinator.GetComponent<ECS::Sprite>(Player).init();

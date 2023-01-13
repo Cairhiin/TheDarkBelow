@@ -2,6 +2,7 @@
 #define GAME_CONSTANTS
 
 #include "SFML/System/Vector2.hpp"
+#include "Animation.h"
 
 namespace DarkBelow {
 	namespace Constants {
@@ -14,6 +15,30 @@ namespace DarkBelow {
 			const sf::Vector2f SPEED = { 100.f, 100.f };
 			const sf::Vector2f SCALE = { 2.f, 2.f };
 			const sf::Vector2f JUMP_FORCE = { 0.f, -200.f };
+
+			const AnimationData idleAnimation = {
+				10,
+				0,
+				AnimationType::IDLE,
+				{ sf::IntRect(0, 40, 108, 40) },
+				true
+			};
+
+			const AnimationData runAnimation = {
+				10,
+				0,
+				AnimationType::RUN,
+				{ sf::IntRect(0, 40, 108, 40) }
+			};
+
+			const AnimationData attack_1_Animation = {
+				4,
+				0,
+				AnimationType::ATTACK_1,
+				{ sf::IntRect(4, 20, 105, 60) },
+				false,
+				true
+			};
 		}
 
 		namespace Level {
@@ -42,14 +67,6 @@ namespace DarkBelow {
 			constexpr int SPATIAL_HASH_COLUMNS = 10;
 			constexpr int SPATIAL_HASH_ROWS = 5;
 		}
-
-		enum AnimationType {
-			IDLE,
-			ATTACK,
-			TAKE_HIT,
-			DEATH,
-			RUN
-		};
 	}
 }
 

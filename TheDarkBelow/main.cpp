@@ -94,7 +94,10 @@ int main() {
     playerTextures[0] = playerTexture;
     playerTexture = gTextureLoader.loadTexture("playerChar", "images/player/run.png");
     playerTextures[1] = playerTexture;
+    playerTexture = gTextureLoader.loadTexture("playerChar", "images/player/attack_1.png");
+    playerTextures[2] = playerTexture;
     auto& Player = PlayerCreator::CreatePlayerEntity(playerTextures);
+
     playerControlSystem->init(Player);
 
     sf::Clock deltaClock;
