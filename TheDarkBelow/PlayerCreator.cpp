@@ -37,7 +37,7 @@ namespace DarkBelow {
             Player,
             Collision{
                 Constants::Level::PLAYER,
-                { 650.f, 150.f, 48.f, 86.f }
+                { 650.f, 150.f, 48.f, 40.f }
             });   
         
         sf::Sprite playerSpriteIdle;
@@ -72,7 +72,7 @@ namespace DarkBelow {
             Player,
             ECS::Animation{
                 idleAnimation,
-                10
+                100
             });
         gCoordinator.GetComponent<ECS::Sprite>(Player).init();
 

@@ -68,7 +68,7 @@ namespace DarkBelow {
 				};
 
 				// Add collision component to blocking tiles
-				if (tileType != 0) {
+				if (tileType != 0 && tileType != 3 && tileType != 4) {
 					this->AddCollision(
 						static_cast<float>(x),
 						static_cast<float>(y),

@@ -15,7 +15,7 @@ namespace DarkBelow {
 			void update(float dt);
 
 		private:
-			size_t timer;
+			float timer;
 		};
 	}
 }
