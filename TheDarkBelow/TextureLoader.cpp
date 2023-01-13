@@ -2,28 +2,17 @@
 #include <iostream>
 
 namespace DarkBelow {
-	void TextureLoader::init() {
-		sf::Texture texture;
-		if (!texture.loadFromFile("images/knight_idle.png")) {
-			std::cout << "[ERROR] Cannot load texture, file not found!" << std::endl;
-		}
-		else {
-			mTextures.emplace("playerChar", texture);
+	sf::Texture TextureLoader::getTexture(const std::string& name) {
+		if (mTextures.find(name) != mTextures.end()) {
+			return mTextures[name];
 		}
 	}
 
-	bool TextureLoader::addTexture(const std::string& id, const char* path, sf::IntRect sourceRect) {
-		sf::Texture texture;
-		if (!texture.loadFromFile(path, sourceRect)) {
-			std::cout << "[ERROR] Cannot load texture, file not found!" << std::endl;
-			return false;
-		}
-
-		mTextures.emplace(id, texture);
-		return true;
-	}
-
-	sf::Texture TextureLoader::getTexture(const std::string& id) {
-		return mTextures[id];
-	}
+    sf::Texture TextureLoader::loadTexture(const std::string& name, const std::string& path) {
+        sf::Texture texture;
+        if (texture.loadFromFile(path)) {
+            mTextures[name] = texture;
+            return texture;
+        } 
+    }
 }

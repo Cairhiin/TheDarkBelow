@@ -130,15 +130,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="PlayerCreator.cpp" />
+    <ClCompile Include="Systems\AnimationSystem.cpp" />
+    <ClCompile Include="SpatialHash.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Systems\CollisionSystem.cpp" />
+    <ClCompile Include="Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Systems\PlayerControlSystem.cpp" />
     <ClCompile Include="Systems\RenderSystem.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="PlayerCreator.h" />
+    <ClInclude Include="Systems\AnimationSystem.h" />
+    <ClInclude Include="Components\Animation.h" />
+    <ClInclude Include="Components\Collision.h" />
+    <ClInclude Include="Components\Gravity.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="ECS\ComponentArray.h" />
     <ClInclude Include="ECS\ComponentManager.h" />
     <ClInclude Include="ECS\Coordinator.h" />
     <ClInclude Include="ECS\EntityManager.h" />
+    <ClInclude Include="SpatialHash.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Systems\CollisionSystem.h" />
+    <ClInclude Include="Systems\PhysicsSystem.h" />
+    <ClInclude Include="Systems\PlayerControlSystem.h" />
     <ClInclude Include="Systems\RenderSystem.h" />
     <ClInclude Include="Components\RigidBody.h" />
     <ClInclude Include="Components\Sprite.h" />
@@ -147,6 +166,11 @@
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="ECS\Types.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\main_lev_build_1.png" />
+    <Image Include="images\player\idle.png" />
+    <Image Include="images\player\run.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
