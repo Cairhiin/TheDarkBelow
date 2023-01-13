@@ -19,3 +19,6 @@ Gravity is currently disabled but working to test collision and the spatial hash
 - Add drops
 - Add inventory
 - Add UI
+
+## Showcase
+![DarkBelowAnimations](https://user-images.githubusercontent.com/21054780/212403952-0a844df0-fe27-4bac-9be6-4f8a31207b15.gif)
