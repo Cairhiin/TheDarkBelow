@@ -13,7 +13,7 @@ extern DarkBelow::TextureLoader gTextureLoader;
 
 namespace DarkBelow {
     using namespace ECS;
-    Entity& PlayerCreator::CreatePlayerEntity(const std::array<sf::Texture, 4>& playerTextures) {
+    Entity& PlayerCreator::CreatePlayerEntity() {
         auto Player = gCoordinator.CreateEntity();
         gCoordinator.AddComponent(
             Player,
@@ -40,16 +40,16 @@ namespace DarkBelow {
                 { 650.f, 150.f, 48.f, 40.f }
             });   
         
-        sf::Sprite playerSpriteIdle;
-        playerSpriteIdle.setTexture(playerTextures[0]);
+        sf::Sprite playerSpriteIdle;      
+        playerSpriteIdle.setTexture(*gTextureLoader.getTexture("playerCharIdle"));
         playerSpriteIdle.setOrigin(54, 20);
 
         sf::Sprite playerSpriteRun;
-        playerSpriteRun.setTexture(playerTextures[1]);
+        playerSpriteRun.setTexture(*gTextureLoader.getTexture("playerCharRun"));
         playerSpriteRun.setOrigin(54, 20);
 
         sf::Sprite playerSpriteAttack_1;
-        playerSpriteAttack_1.setTexture(playerTextures[2]);
+        playerSpriteAttack_1.setTexture(*gTextureLoader.getTexture("playerCharAttack_1"));
         playerSpriteAttack_1.setOrigin(52, 20);
 
         gCoordinator.AddComponent(
