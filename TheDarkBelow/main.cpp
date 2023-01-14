@@ -27,6 +27,7 @@ int main() {
     using namespace DarkBelow;
     
     sf::RenderWindow window(sf::VideoMode(1280, 640), "The Dark Below");
+    gTextureLoader.init();
     gCoordinator.init();
 
     gCoordinator.RegisterComponent<ECS::Transform>();
@@ -88,15 +89,7 @@ int main() {
     auto level = std::make_unique<Map>(mapTextureId, Constants::Level::SCALE, Constants::Level::TILE_SIZE);
     level->Load();
 
-    sf::Texture playerTexture;
-    playerTexture = gTextureLoader.loadTexture("playerChar", "images/player/idle.png");
-    std::array<sf::Texture, 4> playerTextures;
-    playerTextures[0] = playerTexture;
-    playerTexture = gTextureLoader.loadTexture("playerChar", "images/player/run.png");
-    playerTextures[1] = playerTexture;
-    playerTexture = gTextureLoader.loadTexture("playerChar", "images/player/attack_1.png");
-    playerTextures[2] = playerTexture;
-    auto& Player = PlayerCreator::CreatePlayerEntity(playerTextures);
+    auto& Player = PlayerCreator::CreatePlayerEntity();
 
     playerControlSystem->init(Player);
 

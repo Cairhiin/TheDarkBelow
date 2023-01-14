@@ -20,7 +20,8 @@ namespace DarkBelow {
 		: mTextureId(textureID), mScale(scale), mTileSize(tileSize) {}
 
 	 void Map::Load() {
-		mTileset = gTextureLoader.loadTexture(mTextureId, "images/main_lev_build_1.png");
+		gTextureLoader.addTexture(mTextureId, "images/main_lev_build_1.png");
+		mTileset = *gTextureLoader.getTexture(mTextureId);
 		this->setScale(this->mScale);	
 		
 		mVertices.setPrimitiveType(sf::Quads);
