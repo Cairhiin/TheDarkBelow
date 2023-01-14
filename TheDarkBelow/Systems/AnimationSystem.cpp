@@ -9,22 +9,24 @@ namespace DarkBelow {
 			for (auto& entity : mEntities) {
 				auto& spriteComponent = gCoordinator.GetComponent<Sprite>(entity);
 				auto& animationComponent = gCoordinator.GetComponent<Animation>(entity);
-				
-				if (spriteComponent.currentSpriteName != animationComponent.animation.type) {
+				bool hasPriority = animationComponent.animation.isPriorityAnimation;
+				bool hasChanged = spriteComponent.currentSpriteName != animationComponent.animation.type;
+				bool hasFinished = spriteComponent.srcRect.left >=
+					animationComponent.animation.frames * spriteComponent.srcRect.width;
+
+				if ((hasChanged && !hasPriority) || (hasChanged && hasFinished)) {
 					spriteComponent.currentSpriteName = animationComponent.animation.type;
 					animationComponent.animation = this->getAnimation(animationComponent.animation.type);
 					spriteComponent.srcRect.left = 0;
 				}
 				
 				if (
-					spriteComponent.srcRect.left >=
-					animationComponent.animation.frames * spriteComponent.srcRect.width &&
+					hasFinished &&
 					animationComponent.animation.playsContinuously == true
 				) {
 					spriteComponent.srcRect.left = 0;
 				}
-				else if (spriteComponent.srcRect.left >=
-					animationComponent.animation.frames * spriteComponent.srcRect.width && 
+				else if (hasFinished &&
 					animationComponent.animation.playsContinuously == false
 				) {
 					animationComponent.animation.type = AnimationType::IDLE;
