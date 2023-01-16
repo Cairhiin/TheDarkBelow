@@ -7,6 +7,8 @@
 #include "Components/Gravity.h"
 #include "Components/Collision.h"
 #include "Components/Animation.h"
+#include "Components/Name.h"
+#include "Components/Level.h"
 #include "Systems/RenderSystem.h"
 #include "Systems/PhysicsSystem.h"
 #include "Systems/PlayerControlSystem.h"
@@ -17,7 +19,7 @@
 #include "Map.h"
 #include "Constants.h"
 #include "SpatialHash.h"
-#include "PlayerCreator.h"
+#include "EntityCreator.h"
 
 DarkBelow::TextureLoader gTextureLoader;
 DarkBelow::ECS::Coordinator gCoordinator;
@@ -36,6 +38,8 @@ int main() {
     gCoordinator.RegisterComponent<ECS::Gravity>();
     gCoordinator.RegisterComponent<ECS::Collision>();
     gCoordinator.RegisterComponent<ECS::Animation>();
+    gCoordinator.RegisterComponent<ECS::Name>();
+    gCoordinator.RegisterComponent<ECS::Level>();
 
     auto physicsSystem = gCoordinator.RegisterSystem<ECS::PhysicsSystem>();
     {
@@ -89,7 +93,7 @@ int main() {
     auto level = std::make_unique<Map>(mapTextureId, Constants::Level::SCALE, Constants::Level::TILE_SIZE);
     level->Load();
 
-    auto& Player = PlayerCreator::CreatePlayerEntity();
+    auto& Player = EntityCreator::CreatePlayerEntity();
 
     playerControlSystem->init(Player);
 

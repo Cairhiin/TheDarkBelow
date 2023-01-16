@@ -1,4 +1,4 @@
-#include "PlayerCreator.h"
+#include "EntityCreator.h"
 #include "ECS/Coordinator.h"
 #include "Components/Transform.h"
 #include "Components/RigidBody.h"
@@ -6,6 +6,8 @@
 #include "Components/Collision.h"
 #include "Components/Sprite.h"
 #include "Components/Animation.h"
+#include "Components/Name.h"
+#include "Components/Level.h"
 #include "TextureLoader.h"
 
 extern DarkBelow::ECS::Coordinator gCoordinator;
@@ -13,7 +15,7 @@ extern DarkBelow::TextureLoader gTextureLoader;
 
 namespace DarkBelow {
     using namespace ECS;
-    Entity& PlayerCreator::CreatePlayerEntity() {
+    Entity& EntityCreator::CreatePlayerEntity() {
         auto Player = gCoordinator.CreateEntity();
         gCoordinator.AddComponent(
             Player,
@@ -71,5 +73,38 @@ namespace DarkBelow {
         gCoordinator.GetComponent<ECS::Sprite>(Player).init();
 
         return Player;
+    }
+
+    Entity& EntityCreator::CreateMonsterEntity(
+        Constants::Monster::MonsterType type, size_t level, bool isBoss
+    ) {
+        auto Monster = gCoordinator.CreateEntity();
+        gCoordinator.AddComponent(
+            Monster,
+            Level{ level }
+        );
+        Transform{
+                sf::Vector2f(250.f, 250.f),
+                sf::Vector2f(0.f, 0.f),
+                Constants::Monster::SCALE
+        });
+        gCoordinator.AddComponent(
+            Monster,
+            RigidBody{
+                sf::Vector2f(0.f, 0.f),
+                sf::Vector2f(0.f, 0.f)
+            });
+        gCoordinator.AddComponent(
+            Monster,
+            Gravity{
+                Constants::Game::GRAVITY
+            });
+        gCoordinator.AddComponent(
+            Monster,
+            Collision{
+                Constants::Level::MONSTER,
+                { 250.f, 250.f, 48.f, 40.f }
+            });
+        return Monster;
     }
 }

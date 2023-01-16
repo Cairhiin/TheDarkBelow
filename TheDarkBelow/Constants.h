@@ -67,6 +67,19 @@ namespace DarkBelow {
 			constexpr int SPATIAL_HASH_COLUMNS = 10;
 			constexpr int SPATIAL_HASH_ROWS = 5;
 		}
+
+		namespace Monster {
+			const sf::Vector2f SPEED = { 100.f, 100.f };
+			const sf::Vector2f SCALE = { 2.f, 2.f };
+			const enum MonsterType {
+				SKELETAL_WARRIOR,
+				FLOATING_EYEBALL,
+				GOBLIN,
+			};
+			const struct SkeletalWarrior {
+				std::string name = "Skeletal Warrior";
+			};
+		}
 	}
 }
 

@@ -51,7 +51,7 @@
     <ClCompile Include="Systems\AnimationSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerCreator.cpp">
+    <ClCompile Include="EntityCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,7 +125,13 @@
     <ClInclude Include="Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerCreator.h">
+    <ClInclude Include="EntityCreator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Name.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -139,5 +145,11 @@
     <Image Include="images\player\run.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="images\player\attack_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\act1_level1.txt" />
   </ItemGroup>
 </Project>
