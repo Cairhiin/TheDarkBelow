@@ -79,6 +79,12 @@ namespace DarkBelow {
 			const struct SkeletalWarrior {
 				std::string name = "Skeletal Warrior";
 			};
+			const enum Modifier {
+				EXTRA_STRONG,
+				EXTRA_FAST,
+				HEALTHY,
+				TELEPORTER
+			};
 		}
 	}
 }
