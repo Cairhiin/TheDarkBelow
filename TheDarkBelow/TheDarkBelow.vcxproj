@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Components\Boss.h" />
     <ClInclude Include="Components\Level.h" />
     <ClInclude Include="Components\Name.h" />
     <ClInclude Include="EntityCreator.h" />

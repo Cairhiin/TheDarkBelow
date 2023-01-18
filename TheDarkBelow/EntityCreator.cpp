@@ -83,11 +83,12 @@ namespace DarkBelow {
             Monster,
             Level{ level }
         );
-        Transform{
+        gCoordinator.AddComponent(Monster,
+            Transform{
                 sf::Vector2f(250.f, 250.f),
                 sf::Vector2f(0.f, 0.f),
                 Constants::Monster::SCALE
-        });
+            });
         gCoordinator.AddComponent(
             Monster,
             RigidBody{
