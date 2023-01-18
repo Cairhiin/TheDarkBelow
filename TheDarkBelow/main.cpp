@@ -27,7 +27,7 @@ static bool quit = false;
 
 int main() {
     using namespace DarkBelow;
-    
+
     sf::RenderWindow window(sf::VideoMode(1280, 640), "The Dark Below");
     gTextureLoader.init();
     gCoordinator.init();

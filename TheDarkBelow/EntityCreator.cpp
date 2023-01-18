@@ -1,4 +1,5 @@
 #include "EntityCreator.h"
+#include <random>
 #include "ECS/Coordinator.h"
 #include "Components/Transform.h"
 #include "Components/RigidBody.h"
@@ -8,6 +9,7 @@
 #include "Components/Animation.h"
 #include "Components/Name.h"
 #include "Components/Level.h"
+#include "Components/Boss.h"
 #include "TextureLoader.h"
 
 extern DarkBelow::ECS::Coordinator gCoordinator;
@@ -42,6 +44,13 @@ namespace DarkBelow {
                 { 650.f, 150.f, 48.f, 40.f }
             });   
         
+      
+        std::set<Constants::Monster::Modifier> mods = EntityCreator::GetBossModifiers(3);
+        for (auto mod : mods) {
+            std::cout << mod << std::endl;
+        }
+
+
         sf::Sprite playerSpriteIdle;      
         playerSpriteIdle.setTexture(*gTextureLoader.getTexture("playerCharIdle"));
         playerSpriteIdle.setOrigin(54, 20);
@@ -106,6 +115,38 @@ namespace DarkBelow {
                 Constants::Level::MONSTER,
                 { 250.f, 250.f, 48.f, 40.f }
             });
+
+        if (isBoss) {
+            gCoordinator.AddComponent(
+                Monster,
+                Boss{
+                    // Needs proper implementation
+                    { Constants::Monster::EXTRA_FAST }
+                });
+        }
+
         return Monster;
+    }
+
+    std::set<Constants::Monster::Modifier> EntityCreator::GetBossModifiers(int level) {
+        std::set<Constants::Monster::Modifier> mods;
+        std::array< Constants::Monster::Modifier, 3> availableMods{
+            Constants::Monster::EXTRA_FAST,
+            Constants::Monster::EXTRA_STRONG,
+            Constants::Monster::HEALTHY
+        };
+        std::random_device dev;
+        std::mt19937 rng(dev());
+        std::uniform_int_distribution<std::mt19937::result_type> dist2(0, 2);
+        for (int i = 0; i < level; ++i) {
+            auto index = dist2(rng);
+            if (mods.find(availableMods[index]) != mods.end()) {
+                // The boss already has the modifier, lower the counter and continue
+                --i;
+                continue;
+            }
+            mods.insert(availableMods[index]);
+        }
+        return mods;
     }
 }
